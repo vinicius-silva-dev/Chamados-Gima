@@ -30,9 +30,8 @@ export default {
   .container {
     display: grid;
     grid-template-rows: 50px 1fr;
-    width: 20%;
     max-height: 80%;
-    /* border: 1px solid; */
+    border: 1px solid;
   }
 
   .header{

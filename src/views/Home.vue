@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <Header/>
+    <SelectLojas/>
     <main class="chamados">
       <TabelaChamados
         title="Aberto"
@@ -52,6 +53,7 @@
 import Header from "@/components/Header.vue"
 import TabelaChamados from '@/components/TabelaChamados.vue'
  import Chamado from "@/components/Chamado.vue"
+ import SelectLojas from "@/components/SelectLojas.vue"
 
 
 export default {
@@ -59,7 +61,8 @@ export default {
   components: {
     Header,
     TabelaChamados,
-    Chamado
+    Chamado,
+    SelectLojas
   },
   data() {
     return {
