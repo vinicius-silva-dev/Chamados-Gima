@@ -6,7 +6,14 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    children: [
+      {
+        path: 'detalhechamado',
+        name: 'DetalheChamado',
+        component: () => import ("@/views/detalhe-chamado/DetalheChamado")
+      }
+    ]
   },
   {
     path: '/',

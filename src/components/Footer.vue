@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="container">
+    <p>@ Vinicius Silva Souza</p>
+  </div>
 </template>
 
 <script>
@@ -9,5 +11,17 @@ export default {
 </script>
 
 <style scoped>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    margin-top: 20px;
+    background: #3C3E42;
+  }
 
+  .container p{
+    color: #FFFFFF;
+  }
 </style>

@@ -5,6 +5,7 @@
       :items="['Fiat Gima Jaru', 'Fiat Gima Ariquemes', 'Fiat Gima Ouro Preto']"
       hide-details
       variant="solo-inverted"
+      bg-color="#3C3E42"
     ></v-select>
   </div>
 </template>

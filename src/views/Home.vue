@@ -46,6 +46,9 @@
         </div>
       </TabelaChamados>
     </main>
+    <footer>
+      <Footer/>
+    </footer>
   </div>
 </template>
 
@@ -54,6 +57,7 @@ import Header from "@/components/Header.vue"
 import TabelaChamados from '@/components/TabelaChamados.vue'
  import Chamado from "@/components/Chamado.vue"
  import SelectLojas from "@/components/SelectLojas.vue"
+ import Footer from "@/components/Footer.vue"
 
 
 export default {
@@ -62,7 +66,8 @@ export default {
     Header,
     TabelaChamados,
     Chamado,
-    SelectLojas
+    SelectLojas,
+    Footer
   },
   data() {
     return {
@@ -108,7 +113,7 @@ export default {
     justify-content: space-around;
     margin-top: 20px;
     min-height: 470px;
-    max-height: 600px;
+    max-height: 550px;
   }
   .colorChamado{
     color: #FFF;
