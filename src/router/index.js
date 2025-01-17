@@ -9,7 +9,7 @@ const routes = [
     component: HomeView,
     children: [
       {
-        path: 'detalhechamado',
+        path: 'detalhechamado/:id',
         name: 'DetalheChamado',
         component: () => import ("@/views/detalhe-chamado/DetalheChamado")
       }

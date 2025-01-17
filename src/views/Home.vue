@@ -1,54 +1,64 @@
 <template>
   <div class="container">
-    <Header/>
-    <SelectLojas/>
-    <main class="chamados">
-      <TabelaChamados
-        title="Aberto"
-        status="Aberto"
-      >
-        <div v-for="chamado in listChamados" :key="chamado.status">
-          <Chamado 
-            v-if="chamado.status == 'Aberto'"
-            :prioridade="chamado.prioridade"
-          />
-        </div>
-      </TabelaChamados>
+    <div>
 
-      <TabelaChamados
-        title="Em Atendimento"
+      <Header/>
+      <SelectLojas
+        v-if="showchamados"
+      />
+      <main 
+        class="chamados"
+        v-if="showchamados"
       >
-        <div v-for="chamado in listChamados" :key="chamado.status">
-          <Chamado 
-            v-if="chamado.status == 'Em Atendimento'"
-            color="#FF0000"
-            class="colorChamado"
-            :prioridade="chamado.prioridade"
-          />
-        </div>
-      </TabelaChamados>
+        <TabelaChamados
+          title="Aberto"
+          status="Aberto"
+        >
+          <div v-for="chamado in listChamados" :key="chamado.status">
+            <Chamado 
+              v-if="chamado.status == 'Aberto'"
+              :prioridade="chamado.prioridade"
+              :id="chamado.id"
+            />
+          </div>
+        </TabelaChamados>
 
-      <TabelaChamados
-        title="Resolvido"
-        status="Resolvido"
-      >
-        <div v-for="chamado in listChamados" :key="chamado.status">
-          <Chamado v-if="chamado.status == 'Resolvido'"/>
-        </div>
-      </TabelaChamados>
+        <TabelaChamados
+          title="Em Atendimento"
+        >
+          <div v-for="chamado in listChamados" :key="chamado.status">
+            <Chamado 
+              v-if="chamado.status == 'Em Atendimento'"
+              color="#FF0000"
+              class="colorChamado"
+              :prioridade="chamado.prioridade"
+            />
+          </div>
+        </TabelaChamados>
 
-      <TabelaChamados
-        title="Cancelado"
-        status="Cancelado"
-      >
-         <div v-for="chamado in listChamados" :key="chamado.status">
-          <Chamado v-if="chamado.status == 'Cancelado'"/>
-        </div>
-      </TabelaChamados>
-    </main>
-    <footer>
-      <Footer/>
-    </footer>
+        <TabelaChamados
+          title="Resolvido"
+          status="Resolvido"
+        >
+          <div v-for="chamado in listChamados" :key="chamado.status">
+            <Chamado v-if="chamado.status == 'Resolvido'"/>
+          </div>
+        </TabelaChamados>
+
+        <TabelaChamados
+          title="Cancelado"
+          status="Cancelado"
+        >
+          <div v-for="chamado in listChamados" :key="chamado.status">
+            <Chamado v-if="chamado.status == 'Cancelado'"/>
+          </div>
+        </TabelaChamados>
+      </main>
+      <router-view class="detalheChamado"/>
+      <footer class="footer">
+        <Footer/>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -73,41 +83,64 @@ export default {
     return {
       listChamados: [
         {
+          id: 'kdkdfk454',
           status: "Aberto",
           prioridade: "Medio"
         },
         {
+          id: 'kdkdfddk454',
           status: "Em Atendimento",
           prioridade: "Alto"
         },
         {
+          id: 'kdadfvkdfk454',
           status: "Aberto",
           prioridade: "Baixo"
         },
         {
+          id: 'kdkdfk4vfvf541223',
           status: "Em Atendimento",
           prioridade: "Medio"
         },
         {
+          id: 'kdkdfk45wever3444',
           status: "Aberto",
           prioridade: "Medio"
         },
         {
+          id: 'kdkdfk4adsvr32354',
           status: "Aberto",
           prioridade: "Medio"
         },
       ]
     }
   },
-  // computed: {
-  //   bgColor() {
-  //     return this.
-  //   }
-  // }
+  computed: {
+     showchamados() {
+      const url = window.location.pathname
+
+      if(url != '/home') {
+        return false
+      }
+
+      return true
+    },
+  }
 }
 </script>
 
 <style scoped>
+  .container {
+    height: 100vh;
+    display: grid;
+    /* grid-template-rows: 25% 100% 25%; */
+  }
+  .detalheChamado {
+    grid-row: 2 !important;
+  }
+  .footer {
+    grid-row: 3;
+  }
   .chamados {
     display: flex;
     justify-content: space-around;

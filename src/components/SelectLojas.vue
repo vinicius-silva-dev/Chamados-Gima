@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="containerSelect">
     <v-select
       label="Loja"
       :items="['Fiat Gima Jaru', 'Fiat Gima Ariquemes', 'Fiat Gima Ouro Preto']"
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped>
-  .container {
+  .containerSelect {
     max-width: 15%;
     /* border: 1px solid; */
     margin: 0px 0px 0px 83%;

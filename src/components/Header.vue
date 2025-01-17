@@ -1,5 +1,5 @@
 <template>
-  <header class="container">
+  <header class="containerHeader">
     <div class="header">
       <v-img class="imgHeader" src="../img/header.png"></v-img>
       <div class="perfil">
@@ -95,7 +95,7 @@ export default {
   a {
     text-decoration: none;
   }
-  .container {
+  .containerHeader {
     width: 100%;
     height: 200px;
     

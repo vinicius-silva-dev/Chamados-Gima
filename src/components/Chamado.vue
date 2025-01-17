@@ -7,7 +7,7 @@
       border="xs"
       :color="bgColorText"
     >
-      <router-link to="#"  :class="colorText">
+      <router-link :to="`/home/detalhechamado/${id}`"  :class="colorText">
         <div class="codChamado">
           <span>N° {{codigo}}</span>
       </div>
@@ -35,6 +35,9 @@
 export default {
   name: "theChamado",
   props: {
+    id: {
+      type: String
+    },
     codigo: {
       type: Number,
       default: 12458

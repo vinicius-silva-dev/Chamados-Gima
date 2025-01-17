@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="containerFooter">
     <p>@ Vinicius Silva Souza</p>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-  .container {
+  .containerFooter {
     display: flex;
     justify-content: center;
     align-items: center;

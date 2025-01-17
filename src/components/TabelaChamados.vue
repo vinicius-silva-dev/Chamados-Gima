@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="containerTabela">
     <header class="header">
       <p>{{title}}</p>
       <v-img class="seta" src="../img/seta-down.png"></v-img>
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style scoped>
-  .container {
+  .containerTabela {
     display: grid;
     grid-template-rows: 50px 1fr;
     /* border: 1px solid; */
@@ -61,8 +61,8 @@ export default {
   }
 
   @media only screen and (min-width: 1444px) {
-    .container {
-      width: 22%;
+    .containerTabela {
+      width: 21%;
       
     }
   }
