@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div>
+  <div >
+    <div class="container">
 
       <Header/>
       <SelectLojas
@@ -55,9 +55,8 @@
         </TabelaChamados>
       </main>
       <router-view class="detalheChamado"/>
-      <footer class="footer">
-        <Footer/>
-      </footer>
+      <Footer class="footer"/>
+
     </div>
   </div>
 </template>
@@ -115,6 +114,9 @@ export default {
       ]
     }
   },
+  created() {
+    // window.location.reload()
+  },
   computed: {
      showchamados() {
       const url = window.location.pathname
@@ -135,12 +137,12 @@ export default {
     display: grid;
     /* grid-template-rows: 25% 100% 25%; */
   }
-  .detalheChamado {
+  /* .detalheChamado {
     grid-row: 2 !important;
   }
   .footer {
     grid-row: 3;
-  }
+  } */
   .chamados {
     display: flex;
     justify-content: space-around;
@@ -150,5 +152,9 @@ export default {
   }
   .colorChamado{
     color: #FFF;
+  }
+
+  .footer {
+    align-self: end;
   }
 </style>

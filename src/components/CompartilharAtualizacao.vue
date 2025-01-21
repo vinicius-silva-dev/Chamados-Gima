@@ -94,6 +94,7 @@ export default {
     align-self: center;
     font-size: 18px;
     border: 1px solid #dcdcdc;
+    cursor: pointer;
     /* border-radius: 0px 0px 10px 0px; */
     text-align: center;
   }

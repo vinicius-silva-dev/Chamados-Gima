@@ -6,11 +6,7 @@
     <v-btn class="atenderChamado">Atender Chamado</v-btn>
     <div class="main">
       <CompartilharAtualizacao/>
-      <div class="detalhes">
-        <div class="detalhesChamado">
-          Detalhes
-        </div>
-      </div>
+      <InformacoesCaso/>
     </div>
   </div>
 </template>
@@ -18,12 +14,15 @@
 <script>
 import HeaderDetalheChamado from '@/components/HeaderDetalheChamado.vue'
 import CompartilharAtualizacao from '@/components/CompartilharAtualizacao.vue'
+import InformacoesCaso from '@/components/InformacoesCaso.vue'
+
 
 export default {
   name: "DetalheChamado",
   components: {
     HeaderDetalheChamado,
-    CompartilharAtualizacao
+    CompartilharAtualizacao,
+    InformacoesCaso
   },
   data() {
     return {

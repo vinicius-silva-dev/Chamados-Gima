@@ -7,25 +7,28 @@
       border="xs"
       :color="bgColorText"
     >
-      <router-link :to="`/home/detalhechamado/${id}`"  :class="colorText">
-        <div class="codChamado">
-          <span>N° {{codigo}}</span>
-      </div>
-      <v-card-item >
-        <v-card-title class="title">
-          {{title}}
-        </v-card-title>
-        <div class="separador"></div>
-        <!-- <v-card-subtitle>
-          Card subtitle secondary text
-        </v-card-subtitle> -->
-      </v-card-item>
-      <v-card-text 
-        class="descricao"
+      <div
+       :class="colorText"
+       @click="abrirDetalheDoChamado"
       >
-        {{descricao}}
-      </v-card-text>
-      </router-link>
+        <div class="codChamado">
+            <span>N° {{codigo}}</span>
+        </div>
+        <v-card-item >
+          <v-card-title class="title">
+            {{title}}
+          </v-card-title>
+          <div class="separador"></div>
+          <!-- <v-card-subtitle>
+            Card subtitle secondary text
+          </v-card-subtitle> -->
+        </v-card-item>
+        <v-card-text 
+          class="descricao"
+        >
+          {{descricao}}
+        </v-card-text>
+      </div>
       
     </v-card>
 </template>
@@ -70,6 +73,12 @@ export default {
       const classColorText = this.prioridade === "Medio" ? "#EDEDE3" : this.prioridade === "Baixo" ? "#008000" : "#FF0000"
 
       return classColorText
+    }
+  },
+  methods: {
+    async abrirDetalheDoChamado() {
+      await this.$router.push(`/home/detalhechamado/${this.id}`)
+      window.location.reload()
     }
   }
 }

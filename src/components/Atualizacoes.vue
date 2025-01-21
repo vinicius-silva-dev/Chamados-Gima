@@ -40,6 +40,7 @@ export default {
     width: 94%;
     justify-self: center;
     margin-top: 10px;
+    margin-bottom: 10px;
     box-shadow: 0px 0px 5px 3px #D9D9D9;
     border-radius: 10px;
   }
