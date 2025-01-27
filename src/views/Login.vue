@@ -8,22 +8,26 @@
       <div class="mainLogin">
         <v-img class="imgLogin" src="../img/img-login.png" alt="img-login" />
         <form class="form" @submit.prevent="submit">
-          <v-text-field
+          <Input
+            label="E-mail"
+            placeholder="johndoe@fiatgima.com.br"
+            font="font"
+          />
+          <!-- <v-text-field
             label="E-mail"
             v-model="email"
             variant="outlined"
             placeholder="johndoe@fiatgima.com.br"
             type="email"
             clearable 
-          />
-          <v-text-field
+          /> -->
+          <Input
             label="Senha"
-            v-model="password"
-            variant="outlined"
             type="password"
-            clearable 
+            placeholder="johndoe@fiatgima.com.br"
+            font="font"
           />
-          <span>Esqueceu a senha? <router-link to="/recuperarsenha">Redefinir senha</router-link></span>
+          <span class="resetSenha">Esqueceu a senha? <router-link to="/recuperarsenha">Redefinir senha</router-link></span>
           <Button 
             @clickEvent="login"
             title="Entrar"
@@ -48,12 +52,14 @@
 // import axios from 'axios'
 
 import Button from '@/components/Button.vue'
+import Input from '@/components/Input.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'theLogin',
   components: {
-    Button
+    Button,
+    Input
   },
   data() {
     return {
@@ -156,6 +162,12 @@ export default {
     /* border: 1px solid; */
     width: 90%;
     justify-self: center;
+  }
+  .font{
+    font-weight: 600;
+  }
+  .resetSenha{
+    margin-top: 20px;
   }
 
   .separador {

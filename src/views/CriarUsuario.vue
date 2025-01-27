@@ -8,53 +8,52 @@
     <div class="container">
       <v-img class="imgLogin" src="../img/img-login.png" alt="img-login"/>
       <form class="form" @submit.prevent="submit">
-        <v-text-field
+        <Input
+          label="Nome Completo"
+          placeholder="..."
+          type="text"
+        />
+        <!-- <v-text-field
           label="Nome Completo"
           v-model="infoUser.name"
           placeholder="..."
           type="text"
           variant="outlined"
           clearable 
-        />
-        <v-text-field
+        /> -->
+        <Input
           label="E-mail"
-          v-model="infoUser.email"
-          variant="outlined"
-          placeholder="johndoe@fiatgima.com.br"
+          placeholder="use@fiatgima.com.br"
           type="email"
-          clearable 
         />
-        <v-select
-          label="Loja"
-          v-model="infoUser.loja"
-          :items="lojas"
-          variant="outlined"
-        />
-        <v-text-field
+        <div class="selectLojas">
+          <label>Lojas</label>
+          <v-select
+            v-model="infoUser.loja"
+            class="select"
+            :items="lojas"
+            variant="outlined"
+            hide-details
+          />
+        </div>
+        <Input
           label="Cargo"
-          v-model="infoUser.cargo"
-          variant="outlined"
-          placeholder="Aux.Adm"
+          placeholder="Aux.adm"
           type="text"
-          clearable 
         />
-        <v-text-field
-          hint="A senha precisa ter no mínimo 6 caracteres."
+        <Input
           label="Senha"
-          v-model="infoUser.password"
-          variant="outlined"
+          placeholder="..."
           type="password"
-          clearable 
-        />
-        <v-text-field
+        />  
+        <Input
           label="Confirmar Senha"
-          v-model="confirmarSenha"
-          variant="outlined"
+          placeholder="..."
           type="password"
-          clearable 
-        />
+        />  
 
         <Button 
+          class="btnSubmit"
           title="Criar usuário"
           padding="0px 10px 0px 20px"
           top="8px"
@@ -68,11 +67,13 @@
 <script>
 // import {defineComponent} from 'vue'
 import Button from '@/components/Button.vue'
+import Input from '@/components/Input.vue'
 
 export default {
   name: "CriarUsuario",
   components: {
-    Button
+    Button,
+    Input
   },
   data() {
     return {
@@ -127,6 +128,20 @@ export default {
     display: grid;
     width: 90%;
     justify-self: center;
+  }
+
+  .selectLojas{
+    /* display: grid; */
+    margin-top: 30px;
+    /* border: 1px solid; */
+  }
+
+  .select {
+     margin-top: 10px;
+  }
+
+  .btnSubmit{
+    margin-top: 30px;
   }
 
   /* @media (min-height: 1500px) {

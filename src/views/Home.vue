@@ -32,6 +32,8 @@
               color="#FF0000"
               class="colorChamado"
               :prioridade="chamado.prioridade"
+              :id="chamado.id"
+          
             />
           </div>
         </TabelaChamados>
@@ -41,7 +43,9 @@
           status="Resolvido"
         >
           <div v-for="chamado in listChamados" :key="chamado.status">
-            <Chamado v-if="chamado.status == 'Resolvido'"/>
+            <Chamado 
+            v-if="chamado.status == 'Resolvido'" 
+            />
           </div>
         </TabelaChamados>
 
@@ -115,7 +119,10 @@ export default {
     }
   },
   created() {
-    // window.location.reload()
+    // if(window.location.pathname === '/home') {
+
+    //   // window.location.reload()
+    // }
   },
   computed: {
      showchamados() {
@@ -124,9 +131,14 @@ export default {
       if(url != '/home') {
         return false
       }
-
+      
       return true
     },
+  }, methods: {
+    async detailsCase() {
+      await this.$router.push(`/home/detalhechamado/${this.id}`)
+      window.location.reload()
+    }
   }
 }
 </script>

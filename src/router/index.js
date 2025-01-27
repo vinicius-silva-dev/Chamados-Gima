@@ -12,6 +12,11 @@ const routes = [
         path: 'detalhechamado/:id',
         name: 'DetalheChamado',
         component: () => import ("@/views/detalhe-chamado/DetalheChamado")
+      },
+      {
+        path: 'novocaso',
+        name: 'CreateCase',
+        component: () => import ("@/views/criar-chamado/criar-chamado")
       }
     ]
   },

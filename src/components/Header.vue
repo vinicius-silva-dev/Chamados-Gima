@@ -13,13 +13,13 @@
       <div class="nav">
         <ul>
           <li>
-            <router-link to="/home">Inicio</router-link>
+            <div @click="homePage" class="homePage">Inicio</div>
             <!-- <span
               class="sublinhado"
              ></span> -->
           </li>
           <li>
-            <router-link to="/novocaso">Novo Caso</router-link>
+            <div @click="newCasePage" class="homePage">Novo Caso</div>
             <!-- <span class="showSublinhado"></span> -->
           </li>
           <li class="casos">
@@ -78,6 +78,19 @@ export default {
     // },
   },
   methods: {
+    async homePage() {
+      await this.$router.push('/home')
+      window.location.reload()
+    },
+
+    async newCasePage() {
+      await this.$router.push('/home/novocaso')
+      window.location.reload()
+    },
+    async userPage() {
+      await this.$router.push('/home/users')
+      window.location.reload()
+    }
     // showSublinhado() {
 
     //   if (this.sublinhado) {
@@ -163,6 +176,10 @@ export default {
     width: 100%;
     height: 2px;
     background: #FFFFFF;
+  }
+
+  .homePage{
+    cursor: pointer;
   }
 
   .pesquisa {

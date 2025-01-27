@@ -27,8 +27,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 # login/user
 [x] - Deve ser possível logar, na aplicação, usando e-mail e senha;
-[] - Em caso de esquecimento da senha, deve ser possível redefinir a senha, usando um código de verificação enviado no e-mail do usuário;
-[] - Deve ser possível criar uma nova conta;
+[x] - Em caso de esquecimento da senha, deve ser possível redefinir a senha, usando um código de verificação enviado no e-mail do usuário;
+[x] - Deve ser possível criar uma nova conta;
 [] - Deve ser possível editar usuário;
 [] - Deve ser possível listar usuário;
 [] - Deve ser possível deletar usuário;

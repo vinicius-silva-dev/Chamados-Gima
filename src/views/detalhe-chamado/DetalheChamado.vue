@@ -4,10 +4,10 @@
       :headerInfo="headerInfo"
     />
     <v-btn class="atenderChamado">Atender Chamado</v-btn>
-    <div class="main">
+    <main class="main">
       <CompartilharAtualizacao/>
       <InformacoesCaso/>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -64,6 +64,7 @@ export default {
     /* border: 1px solid; */
     border-radius: 10px;
     margin-top: 20px;
+
   }
  
   .detalhesChamado {

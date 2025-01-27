@@ -77,6 +77,7 @@ export default {
   },
   methods: {
     async abrirDetalheDoChamado() {
+
       await this.$router.push(`/home/detalhechamado/${this.id}`)
       window.location.reload()
     }
