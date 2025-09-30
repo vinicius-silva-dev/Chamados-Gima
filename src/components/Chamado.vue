@@ -1,11 +1,11 @@
   <template>
     <v-card
-      class="mx-auto my-6 container"
-      elevation="5"
-      max-width="290"
-      height="150"
+      class="mx-auto my-6 container hover-card elevation-5"
+      max-width="240"
+      height="130"
       border="xs"
       :color="bgColorText"
+
     >
       <div
        :class="colorText"
@@ -99,26 +99,32 @@ export default {
 
   .container{
     cursor: pointer;
-    
+  }
+
+  .hover-card:hover {
+    transform: scale(1.02);
+    transition: transform 0.1s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
   .codChamado{
     font-size: 12px;
     font-weight: 500;
     margin-left: 20px;
+    margin-top: 2px;
   }
 
   .title {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .descricao {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 400;
   }
 
   .separador {
     width: 100%;
-    height: 1px;
+    height: 0.8px;
     background: #000000;
     opacity: 0.2;
   }

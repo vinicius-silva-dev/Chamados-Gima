@@ -1,3 +1,5 @@
 export default {
-  token: {}
+  user: {},
+  token: {},
+  getUser: {}
 }

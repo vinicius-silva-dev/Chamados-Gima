@@ -5,12 +5,13 @@
         <div class="acoesDeAtualizacao">
           <ul>
             <li class="publicar">Publicar</li>
-            <li class="encerrarCaso">Encerrar Caso</li>
-            <li class="cancelarCaso">Cancelar Caso</li>
+            <li class="encerrarCaso" @click="encerrar">Encerrar Caso</li>
+            <li class="cancelarCaso" @click="cancelar">Cancelar Caso</li>
           </ul>
         </div>
         <div class="descricaoAtualizacao">
           <v-textarea
+            v-model="texto"
             class="textArea"
             placeholder="Compartilhar uma atualização"
             variant="outlined"
@@ -39,11 +40,18 @@
             padding="0px 30px 0px 35px"
             top="8px"
             fontSize="12px"
+            @click="enviarAtualizacao"
           />
         </div>
         
       </div>
-      <Atualizacoes/>
+      <Atualizacoes
+        v-for="item in atualizacao"
+        :key="item.props.chamadoId"
+        :descricao="item.props.descricao"
+        :nomeUsuario="author"
+      />
+
     </div>
   </div>
 </template>
@@ -57,6 +65,31 @@ export default {
   components: {
     Button,
     Atualizacoes
+  },
+  props: {
+    atualizacao: {
+      type: Array
+    },
+    author: {
+      type: String
+    }
+  },
+  data() {
+    return {
+      texto: ''
+    }
+  },
+  methods: {
+    enviarAtualizacao() {
+       this.$emit("criarAtualizacao", this.texto)
+       this.texto = ""
+    },
+    encerrar() {
+      return this.$emit("showModal", 'encerrar')
+    },
+    cancelar() {
+      return this.$emit("showModal", 'cancelar')
+    },
   }
 }
 </script>
@@ -81,7 +114,8 @@ export default {
 
   .acoesDeAtualizacao ul {
     display: grid;
-    grid-template-columns: 30% 30% 40%;
+    grid-template-columns: repeat(3, 1fr);
+    
     height: 70px;
     /* border: 1px solid #dcdcdc; */
     border-radius: 10px;
@@ -93,10 +127,14 @@ export default {
     height: 100%;
     align-self: center;
     font-size: 18px;
-    border: 1px solid #dcdcdc;
+    
     cursor: pointer;
     /* border-radius: 0px 0px 10px 0px; */
     text-align: center;
+  }
+
+  .acoesDeAtualizacao ul li:not(:last-child) {
+    border-right: 1px solid #dcdcdc;
   }
   .encerrarCaso {
     color: #429800;

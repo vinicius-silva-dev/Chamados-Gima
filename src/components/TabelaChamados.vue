@@ -29,7 +29,8 @@ export default {
 <style scoped>
   .containerTabela {
     display: grid;
-    grid-template-rows: 50px 1fr;
+    grid-template-rows: 30px 550px;
+    width: 18%;
     /* border: 1px solid; */
   }
 
@@ -39,11 +40,11 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* border-radius: 10px */
+    border-radius: 10px 10px 0px 0px
     ;
   }
   .seta {
-    max-width: 40px;
+    max-width: 15px;
     cursor: pointer;
     /* border: 1px solid; */
     margin-right: 20px;
@@ -52,7 +53,7 @@ export default {
   .header p{
     color: #ffffff;
     margin: 0 auto;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
   }
   .chamados {
@@ -60,9 +61,9 @@ export default {
     border: 1px solid  #d5d5d5;
   }
 
-  @media only screen and (min-width: 1444px) {
+  @media only screen and (max-width: 1444px) {
     .containerTabela {
-      width: 21%;
+      width: 22%;
       
     }
   }

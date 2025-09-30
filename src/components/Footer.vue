@@ -16,8 +16,8 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100px;
-    margin-top: 20px;
+    height: 150px;
+    /* margin-top: 20px; */
     background: #3C3E42;
   }
 

@@ -5,8 +5,8 @@
         <span>VS</span>
       </div>
       <p>
-        {{nomeUsuario}} (Usuário) <br>
-        <span>Há 1h</span>
+        {{nomeUsuario}} <br>
+        <!-- <span>Há 1h</span> -->
       </p>
     </header>
     <div class="descricaoContainer">

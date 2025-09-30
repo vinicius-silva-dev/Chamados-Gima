@@ -5,18 +5,18 @@
         <h2>Detalhes</h2>
         <div class="titleCaso">
           <div class="subtitle">
-            <v-img class="seta" src='../img/seta-black.png'></v-img>
+            <!-- <v-img class="seta" src='../img/seta-black.png'></v-img> -->
             <h2>Descrição do caso</h2>
           </div>
           <div class="assunto">
             <h3>Assunto</h3>
-            <p>Descrição do caso</p>
+            <p>{{title}}</p>
           </div>
         </div>
         <div class="descricao">
           <h3>Descrição</h3>
           <p>
-            Aqui vai toda a descrição do chamado
+            {{descricao}}
           </p>
         </div>
       </div>
@@ -25,19 +25,19 @@
         <ul class="infoUsuario">
           <li class="nomeContato">
             <h4>Nome do contato</h4>
-            <p>Vinicius Silva</p>
+            <p>{{author}}</p>
           </li>
           <li class="telefone">
             <h4>Telefone</h4>
-            <p>(69) 9 9306-2430</p>
+            <p>{{telefone}}</p>
           </li>
           <li class="email">
             <h4>E-mail</h4>
-            <p>vinicius100@live.com</p>
+            <p>{{email}}</p>
           </li>
           <li class="loja">
             <h4>Loja</h4>
-            <p>Fiat Gima FL Jaru</p>
+            <p>{{loja}}</p>
           </li>
         </ul>
         <!-- <div class="infoAdicionais">
@@ -50,7 +50,27 @@
 
 <script>
 export default {
-  name: "InformacoesCaso"
+  name: "InformacoesCaso",
+  props: {
+    title: {
+      type: String
+    },
+    descricao: {
+      type: String
+    },
+    author: {
+      type: String
+    },
+    email: {
+      type: String
+    },
+    telefone: {
+      type: String
+    },
+    loja: {
+      type: String
+    },
+  }
 }
 </script>
 
@@ -59,7 +79,8 @@ export default {
     display: grid;
     margin-top: 10px;
     margin-right: 20px;
-    /* height: 700px; */
+    font-family: 'Roboto', sans-serif;
+    height: 10%;
     
     
   }
@@ -97,12 +118,11 @@ export default {
   }
 
   .detalhe > h2 {
-    text-decoration: underline ;
+    /* text-decoration: underline ; */
+    font-weight: 500;
     padding: 10px;
   }
 
-
-  
   .descricao {
     display: grid;
     grid-template-rows: 30% 70%;
@@ -112,7 +132,7 @@ export default {
 
   .informacoes {
     display: grid;
-    grid-template-rows: 20% 40% 40%;
+    /* grid-template-rows: 20% 40% 40%; */
     width: 100%;
     max-height: 400px;
     box-shadow: 0px 0px 5px 3px #D9D9D9;
@@ -121,7 +141,7 @@ export default {
   }
 
   .informacoes > h2 {
-    text-decoration: underline;
+    font-weight: 500;
     padding: 10px;
   }
 
@@ -138,10 +158,15 @@ export default {
     align-items: center;
     padding: 50px;
   }
+
+  .infoUsuario li h4 {
+    text-align: center;
+    font-size: 18px;
+  }
+  
   
   .infoUsuario li p {
     font-size: 14px;
-    text-decoration: underline;
     font-weight: 500;
     margin-top: 10px;
   }

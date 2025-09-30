@@ -11,13 +11,13 @@
         <div class="statusCaso">
           <p>
             Status <br>
-            -
+            {{headerInfo.status.value}}
           </p> 
         </div>
         <div class="propietarioChamado">
           <p>
             Proprietario do Caso <br>
-            -
+            {{headerInfo.author}}
           </p>
         </div>
       </div>
@@ -25,19 +25,19 @@
         <div class="assunto">
           <p>
             Assunto <br>
-            <span>-</span>
+            <span>{{headerInfo.title}}</span>
           </p>
         </div>
         <div class="prioridade">
           <p>
             Prioridade <br>
-            <span>-</span>
+            <span>{{headerInfo.prioridade}}</span>
           </p>
         </div>
         <div class="dataAbertura">
           <p>
             Data/hora de abertura <br>
-            <span>-</span>
+            <span>{{headerInfo.dataAbertura}}</span>
           </p>
         </div>
         <div class="dataFechamento">
@@ -58,6 +58,15 @@ export default {
       type: Object,
       defalt: () => {}
     }
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {
+    async getUser() {
+
+    }
   }
 }
 </script>
@@ -67,7 +76,6 @@ export default {
   .header {
     display: grid;
     grid-template-rows: 80px 80px;
-    height: 100%;
     /* align-items: center; */
     /* border: 1px solid; */
   }

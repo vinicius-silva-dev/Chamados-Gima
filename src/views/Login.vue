@@ -6,27 +6,38 @@
     <div class="login">
       <v-img class="imgListrado" src="../img/listras-fiat.png" alt="listras" />
       <div class="mainLogin">
-        <v-img class="imgLogin" src="../img/img-login.png" alt="img-login" />
+        <div>
+          <v-img class="imgLogin" src="../img/img-login.png" alt="img-login" />
+          <v-radio-group 
+            v-model="user" 
+            inline
+            hide-details
+          >
+            <v-radio label="Analista" value="analista" />
+            <v-radio label="Usuário" value="usuario" />
+          </v-radio-group>
+        </div>
         <form class="form" @submit.prevent="submit">
-          <Input
-            label="E-mail"
-            placeholder="johndoe@fiatgima.com.br"
-            font="font"
-          />
-          <!-- <v-text-field
-            label="E-mail"
-            v-model="email"
-            variant="outlined"
-            placeholder="johndoe@fiatgima.com.br"
-            type="email"
-            clearable 
-          /> -->
-          <Input
-            label="Senha"
-            type="password"
-            placeholder="johndoe@fiatgima.com.br"
-            font="font"
-          />
+          <div class="form-login">
+            <label>Email</label>
+            <input
+              label="E-mail"
+              v-model="email"
+              class="input"
+              placeholder="johndoe@fiatgima.com.br"
+            />
+          </div>
+          
+          <div class="form-login">
+            <label>Senha</label>
+            <input
+              label="Senha"
+              v-model="password"
+              class="input"
+              type="password"
+              placeholder="johndoe@fiatgima.com.br"
+            />
+          </div>
           <span class="resetSenha">Esqueceu a senha? <router-link to="/recuperarsenha">Redefinir senha</router-link></span>
           <Button 
             @clickEvent="login"
@@ -52,36 +63,44 @@
 // import axios from 'axios'
 
 import Button from '@/components/Button.vue'
-import Input from '@/components/Input.vue'
+// import Input from '@/components/Input.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'theLogin',
   components: {
-    Button,
-    Input
+    Button
   },
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      user: '',
     }
+  },
+  created(){
+    window.localStorage.removeItem('token')
+    window.localStorage.removeItem('perfil')
   },
   methods: {
     ...mapActions('users' ,['login']),
+
     async login() {
       const data = {
-        username: this.email,
-        password: this.password
+        email: this.email,
+        password: this.password,
+        isUser: this.user
       }
 
+
       const result = await this.$store.dispatch('users/login', data)
-      console.log(result)
+
+      window.localStorage.setItem('token', result.token)
+      window.localStorage.setItem('perfil', this.user)
 
       if(result) {
         this.$router.push("/home")
       }
-      
     }
   }
 }
@@ -162,6 +181,21 @@ export default {
     /* border: 1px solid; */
     width: 90%;
     justify-self: center;
+  }
+  .form-login {
+    display: grid;
+  }
+  .form-login label {
+    font-weight: bold;
+  }
+  .input {
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0px 0px 15px 0px;
+  }
+  .input:hover{
+    box-shadow: 0px 0px 5px 1px #D9D9D9;
   }
   .font{
     font-weight: 600;

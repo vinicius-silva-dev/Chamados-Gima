@@ -44,6 +44,9 @@ export default {
 
 
 <style scoped>
+  .hello {
+    margin-right: 10px;
+  }
   .buttonEntrar {
     width: 150px;
     height: 51px;
