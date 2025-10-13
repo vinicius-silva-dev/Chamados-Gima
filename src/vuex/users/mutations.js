@@ -9,5 +9,8 @@ export default {
 
   user(state, user) {
     state.gatUser = user
+  },
+  analista(state, analista) {
+    state.analista = analista
   }
 }

@@ -16,17 +16,17 @@ const routes = [
     meta: { requiresAuth: true },
     component: HomeView,
     children: [
-      {
-        path: 'detalhechamado/:id',
-        name: 'DetalheChamado',
-        component: () => import ("@/views/detalhe-chamado/DetalheChamado")
-      },
-      {
-        path: 'novocaso',
-        name: 'CreateCase',
-        component: () => import ("@/views/criar-chamado/criar-chamado")
-      }
     ]
+  },
+  {
+    path: '/novocaso',
+    name: 'CreateCase',
+    component: () => import ("@/views/criar-chamado/criar-chamado")
+  },
+  {
+    path: '/detalhechamado/:id',
+    name: 'DetalheChamado',
+    component: () => import ("@/views/detalhe-chamado/DetalheChamado")
   },
   {
     path: '/login',

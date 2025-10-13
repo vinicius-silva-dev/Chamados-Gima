@@ -1,38 +1,50 @@
 <template>
-  <div class="containerDetalhe">
-    <HeaderDetalheChamado
-      :headerInfo="headerInfo"
-    />
-    <v-btn
-      v-show="showBtnAtenderChamado"
-      class="atenderChamado"
-      @click="atender"
-    >
-      Atender Chamado
-    </v-btn>
- 
-    <ModalDialog
-      v-model:showModal="showModal"
-      @compartilhar="encerrar"
-      @cancelarChamado="cancelar"
-      :tipoOperacao="tipoOperacao"
-      
-    />
-    <main class="main">
-      <CompartilharAtualizacao 
-        @criarAtualizacao="atualizacaoChamado"
-        :atualizacao="atualizacao"
-        @showModal="openModal"
+  <div>
+    <Header/>
+    <div class="containerDetalhe">
+      <HeaderDetalheChamado
+        :headerInfo="headerInfo"
       />
-      <InformacoesCaso
-        :title="headerInfo.title"
-        :descricao="headerInfo.descricao"
-        :author="headerInfo.author"
-        :email="headerInfo.email"
-        :telefone="headerInfo.telefone"
-        :loja="headerInfo.loja"
+      <v-btn
+        v-show="showBtnAtenderChamado"
+        class="atenderChamado"
+        @click="atender"
+      >
+        Atender Chamado
+      </v-btn>
+  
+      <ModalDialog
+        v-model:showModal="showModal"
+        @compartilhar="encerrar"
+        @cancelarChamado="cancelar"
+        :tipoOperacao="tipoOperacao"
       />
-    </main>
+      <Alert
+        class="alert"
+        :alert="alert"
+        :message="message"
+        :type="typeSituation"
+      />
+      <main class="main">
+        <CompartilharAtualizacao 
+          @criarAtualizacao="atualizacaoChamado"
+          @showModal="openModal"
+          :atualizacao="atualizacao"
+          :status="headerInfo.status"
+        />
+        <InformacoesCaso
+          :title="headerInfo.title"
+          :descricao="headerInfo.descricao"
+          :descricaoEncerramento="headerInfo.descricaoEncerramento"
+          :descricaoCancelamento="headerInfo.descricaoCancelamento"
+          :author="headerInfo.author"
+          :email="headerInfo.email"
+          :telefone="headerInfo.telefone"
+          :loja="headerInfo.loja"
+        />
+      </main>
+    </div>
+    <Footer/>
   </div>
 </template>
 
@@ -41,6 +53,9 @@ import HeaderDetalheChamado from '@/components/HeaderDetalheChamado.vue'
 import CompartilharAtualizacao from '@/components/CompartilharAtualizacao.vue'
 import InformacoesCaso from '@/components/InformacoesCaso.vue'
 import ModalDialog from '@/components/ModalDialog.vue'
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
+import Alert from '@/components/Alert.vue'
 import {jwtDecode} from "jwt-decode"
 import { mapActions, mapState } from 'vuex'
 import dayjs from "dayjs";
@@ -51,7 +66,10 @@ export default {
     HeaderDetalheChamado,
     CompartilharAtualizacao,
     InformacoesCaso,
-    ModalDialog
+    ModalDialog,
+    Alert,
+    Header,
+    Footer
   },
   data() {
     return {
@@ -62,15 +80,21 @@ export default {
       },
       atualizacao: [],
       showModal: false,
+      alert: false,
+      message: '',
+      typeSituation: '',
       author: '',
       tipoOperacao: '',
       headerInfo: {
+        userId: '',
         codigo: '',
         status: '',
         author: '',
         email: '',
         title: '',
         descricao: '',
+        descricaoEncerramento: '',
+        descricaoCancelamento: '',
         prioridade: '',
         telefone: '',
         loja: '',
@@ -117,9 +141,12 @@ export default {
   
         this.headerInfo.status = this.chamado.props.status
         this.headerInfo.loja = this.chamado.props.loja
+        this.headerInfo.userId = this.chamado.props.userId
     
         this.headerInfo.title = this.chamado.props.title
         this.headerInfo.descricao = this.chamado.props.descricao
+        this.headerInfo.descricaoEncerramento = this.chamado.props.descricaoEncerramento
+        this.headerInfo.descricaoCancelamento = this.chamado.props.descricaoCancelamento
         this.headerInfo.prioridade = this.chamado.props.prioridade
         this.headerInfo.telefone = this.chamado.props.telefone
         this.headerInfo.dataAbertura = formatted
@@ -130,14 +157,19 @@ export default {
     },
 
     async findUser() {
-      const userId = this.chamado.props.userId
+      
+      const userId = this.headerInfo.userId === '' ? this.$router.push("/login") : this.chamado.props.userId 
       const token = window.localStorage.getItem("token")
       
       const user = await this.getUserById({userId, token})
       
-      this.headerInfo.author = user.props.name
-      this.headerInfo.email = user.props.email
-      this.categoriaUser = window.localStorage.getItem("perfil")
+      if(user === 401) {
+        this.$router.push("/login")
+      } else {
+        this.headerInfo.author = user.props.name
+        this.headerInfo.email = user.props.email
+        this.categoriaUser = window.localStorage.getItem("perfil")
+      }
      
     },
 
@@ -170,20 +202,25 @@ export default {
     },
 
     async getAtualizacaoChamado() {
-      const token = window.localStorage.getItem("token")
-      const chamadoId = this.$route.params.id
-
-      const result = await this.getAtualizacao({chamadoId, token})
-      this.atualizacao = result.atualizacao.reverse()
-
-      result.atualizacao.forEach(async(item) => {
-        const userId = item.props.id
-        const user = await this.getUserById({userId, token})
-
-        if(user) {
-          this.author = user.props.name
-        }
-      })
+      if (this.headerInfo.userId !== '') {
+        const token = window.localStorage.getItem("token")
+        const chamadoId = this.$route.params.id
+  
+        const result = await this.getAtualizacao({chamadoId, token})
+        
+        this.atualizacao = result.atualizacao.reverse()
+  
+        result.atualizacao.forEach(async(item) => {
+          const userId = item.props.id
+          const user = await this.getUserById({userId, token})
+  
+          if(user) {
+            this.author = user.props.name
+          }
+        })
+      } else {
+        this.$router.push('/login')
+      }
 
       
     },
@@ -221,13 +258,34 @@ export default {
         token,
         descricaoEncerramento: event
       }
-      
-      const result = await this.encerrarChamado(data)
 
-      if(result) {
-        this.$router.push("/home").then(() => window.location.reload())
-        // window.location.reload()
+      if(data.descricaoEncerramento === '') {
+        this.typeSituation = 'error'
+        this.alert = true
+        this.message = 'Precisa justificar o encerramento do chamado.'
+        setTimeout(() => {
+          this.alert = false
+        },3000)
+        // window.alert('Precisa justificar o cancelamento do chamado.')
+      } else if(this.headerInfo.status.value === 'Cancelado' || this.headerInfo.status.value === 'Resolvido') {
+        this.typeSituation = 'error'
+        this.alert = true
+        this.message = 'O chamado precisa esta com status Aberto ou Atendimento para compartilhar atualizações.'
+
+         setTimeout(() => {
+          this.alert = false
+        },3000)
+        // window.alert('O chamado precisa esta com status Aberto ou Atendimento para compartilhar atualizações.')
+      } else {
+
+        const result = await this.encerrarChamado(data)
+  
+        if(result) {
+          this.$router.push("/home").then(() => window.location.reload())
+          // window.location.reload()
+        }
       }
+      
     },
     async cancelar(event) {
       const token = window.localStorage.getItem("token")
@@ -239,12 +297,26 @@ export default {
         descricao: event
       }
       
-      await this.cancelarChamado(data)
+      if(data.descricao === '') {
+        this.typeSituation = 'error'
+        this.alert = true
+        this.message = 'Precisa justificar o cancelamento do chamado.'
 
-      // if(result) {
-      //   this.$router.push("/home").then(() => window.location.reload())
-      //   // window.location.reload()
-      // }
+         setTimeout(() => {
+          this.alert = false
+        },3000)
+      } else if(this.headerInfo.status.value === 'Cancelado' || this.headerInfo.status.value === 'Resolvido' ) {
+        this.typeSituation = 'error'
+        this.alert = true
+        this.message = 'O chamado precisa esta com status Aberto ou Atendimento para compartilhar atualizações.'
+
+         setTimeout(() => {
+          this.alert = false
+        },3000)
+      } else {
+        await this.cancelarChamado(data)
+
+      }
     },
 
     openModal(event) {
@@ -271,11 +343,17 @@ export default {
   .containerDetalhe {
     /* display: grid;
     grid-template-rows: 180px 50px 1fr; */
-    /* position: relative; */
+    position: relative;
     font-family: 'Roboto', sans-serif;
     width: 95%;
     margin: 0px auto;
     /* border: 1px solid #D9D9D9; */
+  }
+  .alert {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 40%;
   }
   .atenderChamado {
     width: 15%;

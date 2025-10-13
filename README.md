@@ -36,7 +36,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 # chamado 
 [x] - Deve ser pssível abrir um chamado;
 [x] - Deve ser possível o usuário vizualizar apenas os chamado que ele abriu;
-[x] - Deve ser possível o usuário compartilhar atulizações/informações dentro do chamado
+[x] - Deve ser possível o usuário compartilhar atulizações/informações dentro do chamado;
+[x] - Deve ser criado um componente de loading;
+[] - Deve ser criado cards de menssagem 
 
 ### Regras de negócio
 
@@ -50,10 +52,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 # chamados
 
 [x] - O sistema deve exibir apenas os chamados que pertence ao usuário, se ele for um usuário padrão;
-[] - Somente o analista pode atender o chamado e encerrar, desde que coloque uma descrição quando for encerrar o chamado;
-[] - O usuário pode cancelar o chamado, mediante a uma justificativa;
-[] - Os chamado que estiverem com o status resolvido ou cancelados, devem ser removidos do front-end, ficando salvo apenas no banco de dados;
+[x] - Somente o analista pode atender o chamado e encerrar, desde que coloque uma descrição quando for encerrar o chamado;
+[x] - O usuário pode cancelar o chamado, mediante a uma justificativa;
+[] - Os chamados que estiverem com o status resolvido ou cancelados, devem ser removidos do front-end, ficando salvo apenas no banco de dados;
 [] - Os chamados de prioridade alta devem ficar listados em primeiro, depois seguem a ordem de abertura;
+
 
 ### Requisitos não funcionais
 # login/user

@@ -59,6 +59,7 @@ export default {
   .chamados {
     overflow-y: scroll;
     border: 1px solid  #d5d5d5;
+    border-bottom: none;
   }
 
   @media only screen and (max-width: 1444px) {

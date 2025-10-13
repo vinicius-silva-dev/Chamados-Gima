@@ -1,7 +1,9 @@
 <template>
   <div >
     <div class="container">
-      <Header/>
+      <Header
+        :nameUser="nameUser"
+      />
       <!-- <SelectLojas
         v-if="showchamados"
       /> -->
@@ -9,6 +11,10 @@
         class="chamados"
         v-if="showchamados"
       >
+        <Loading 
+          v-if="loading"
+          class="loading"
+        />
         <TabelaChamados
           title="Aberto"
           status="Aberto"
@@ -76,7 +82,7 @@
           </div>
         </TabelaChamados>
       </main>
-      <router-view class="detalheChamado"/>
+      <!-- <router-view /> -->
       <Footer class="footer"/>
 
     </div>
@@ -87,7 +93,7 @@
 import Header from "@/components/Header.vue"
 import TabelaChamados from '@/components/TabelaChamados.vue'
 import Chamado from "@/components/Chamado.vue"
-// import SelectLojas from "@/components/SelectLojas.vue"
+import Loading from "@/components/Loading.vue"
 import Footer from "@/components/Footer.vue"
 import {jwtDecode} from "jwt-decode"
 import { mapActions, mapState } from 'vuex'
@@ -98,17 +104,20 @@ export default {
     Header,
     TabelaChamados,
     Chamado,
+    Loading,
     // SelectLojas,
     Footer
   },
   data() {
     return {
       listChamados: [],
+      nameUser: '',
+      loading: false
     }
   },
 
-
   async created() {
+    this.loading = true
     if(window.localStorage.perfil === 'analista') {
       await this.listarTodosChamados()
       this.listChamados.push(... this.chamados)
@@ -116,12 +125,13 @@ export default {
       await this.listarChamados()
       this.listChamados.push(... this.chamados)
     }
-
+    this.loading = false
    
   },
 
   computed: {
     ...mapState('chamados',['chamados', 'chamadosAll']),
+    ...mapState('users',['getUser']),
      showchamados() {
       const url = window.location.pathname
 
@@ -130,17 +140,26 @@ export default {
       }
       // window.location.reload()
       return true
-    },
+    }
   },
 
   methods: {
     ...mapActions('chamados' ,['getChamados', 'getChamadosAll']),
-    ...mapActions('users', ['getUserById']),
+    ...mapActions('users', ['getUserById', 'getAnalistaById']),
 
     async listarChamados() {
+      this.loading = true
       const token = window.localStorage.getItem("token")
 
       const payload = this.decodificarToken(token);
+      const userId = payload.sub
+
+      const isUser = await this.getUserById({userId, token})
+      if(isUser === 401) {
+        this.$router.push("/login")
+      } else {
+        this.nameUser = isUser.props.name
+      }
 
       const data = {
         id: payload?.sub,
@@ -149,6 +168,7 @@ export default {
 
       const chamados = await this.getChamados(data)
       console.log(chamados)
+      this.loading = false
       if(chamados === 401) {
         this.$router.push("/login")
       }
@@ -156,12 +176,20 @@ export default {
     },
 
     async listarTodosChamados() {
+
       const token = window.localStorage.getItem("token")
 
-      const payload = this.decodificarToken(token);
-      // const analistaId = payload.sub
+      const payload = this.decodificarToken(token)
 
-      // const isUser = await this.getUserById({analistaId})
+      const analistaId = payload.sub
+
+      const analista = await this.getAnalistaById({analistaId, token})
+      if(analista === 401) {
+        this.$router.push("/login")
+      } else {
+        this.nameUser = analista.props.name
+      }
+
       const data = {
         id: payload?.sub,
         token
@@ -176,7 +204,7 @@ export default {
     },
 
     async detailsCase() {
-      await this.$router.push(`/home/detalhechamado/${this.id}`)
+      await this.$router.push(`/detalhechamado/${this.id}`)
       window.location.reload()
     }, 
     decodificarToken(token) {
@@ -189,7 +217,18 @@ export default {
         return null;
       }
     }
-  }
+  },
+  mounted() {
+  const dias = 2;
+  const msPorDia = 24 * 60 * 60 * 1000;
+  const delay = dias * msPorDia;
+
+  setTimeout(() => {
+    this.listChamados = this.listChamados.filter(
+      chamado => chamado.props.status.value !== 'Resolvido'
+    );
+  }, delay);
+}
 }
 </script>
 
@@ -197,7 +236,11 @@ export default {
   .container {
     display: grid;
     grid-template-rows: auto auto auto, 1fr;
-    
+    /* min-height: 100vh; */
+  }
+  main {
+    position: relative;
+    min-height: 100vh;
   }
   /* .detalheChamado {
     grid-row: 2 !important;

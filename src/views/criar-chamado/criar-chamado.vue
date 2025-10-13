@@ -1,5 +1,6 @@
 <template>
   <div class="novoCasoContainer">
+    <Header/>
     <main class="formCreateCase">
       <section class="formCreate" v-if="next">
         <v-select
@@ -109,6 +110,7 @@
         </div>
       </section>
     </main>
+    <Footer/>
   </div>
 </template>
 
@@ -118,12 +120,17 @@ import Button from '@/components/Button.vue'
 import Anexos from '@/components/Anexos.vue'
 import {jwtDecode} from "jwt-decode"
 import { mapActions, mapState } from 'vuex'
+import Header from '@/components/Header.vue'
+
+import Footer from '@/components/Footer.vue'
 
 export default {
   name:  "CreateCase",
   components: {
     Button,
-    Anexos
+    Anexos,
+    Header,
+    Footer
   },
   data() {
     return {
@@ -222,18 +229,18 @@ export default {
 <style scoped>
   .novoCasoContainer{
     display: grid;
-    width: 95%;
-    height: 800px;
+    width: 100vw;
+    height: auto;
     /* max-height: 800px; */
     margin: 0px auto;
-    border: 1px solid #D9D9D9;
+    /* border: 1px solid #D9D9D9; */
   }
 
   .formCreateCase {
     display: grid;
     padding: 10px;
     width: 80%;
-    height: 95%;
+    height: 100%;
     margin: 10px auto;
     /* border: 1px solid; */
   }

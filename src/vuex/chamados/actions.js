@@ -113,8 +113,8 @@ export default {
       }
 
     } catch (error) {
-      console.log(error)
-      return error.response.status
+      // console.log(error)
+      return error.status
     }
   },
   async createAtualizacao({commit}, data) {

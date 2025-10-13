@@ -1,14 +1,15 @@
 <template>
   <div>
-    <div 
-      class="container"
-      :style="success ? {'background': '#228B22', 'color': '#fff'}: {'background': '#FF5321', 'color': '#fff'}"
+    <v-alert
+      v-if="alert"
+      v-model="showMsg"
+      dismissible
+      elevation="2"
+      :type="type"
+      max-width="25%"
     >
-      <p>{{message}}</p>
-      <button
-        @click="click"
-      >X</button>
-    </div>
+      {{message}}
+    </v-alert>
   </div>
 </template>
 
@@ -17,20 +18,30 @@
 export default {
   name: "theAlert",
   props: {
+    alert: {
+      type: Boolean
+    },
     message: {
       type: String,
       default: ''
     },
-    success: {
-      type: Boolean
+    type: {
+      type: String
     },
-    danger: {
-      type: Boolean
-    },
+  },
+  data() {
+    return {
+      showMsg: this.alert
+    }
   },
   methods: {
     click() {
       return this.$emit('clickEvent')
+    }
+  },
+  watch: {
+    alert(val) {
+      this.showMsg = val
     }
   }
   // components: {

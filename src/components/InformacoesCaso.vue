@@ -19,6 +19,18 @@
             {{descricao}}
           </p>
         </div>
+        <div class="descricao">
+          <h3 :style="{color: '#429800'}">Descrição Encerramento</h3>
+          <p>
+            {{descricaoEncerramento}}
+          </p>
+        </div>
+        <div class="descricao">
+          <h3 :style="{color: '#FF0000'}">Descrição Cancelamento</h3>
+          <p>
+            {{descricaoCancelamento}}
+          </p>
+        </div>
       </div>
       <div class="informacoes">
         <h2>Informações</h2>
@@ -58,6 +70,12 @@ export default {
     descricao: {
       type: String
     },
+    descricaoEncerramento: {
+      type: String
+    },
+    descricaoCancelamento: {
+      type: String
+    },
     author: {
       type: String
     },
@@ -87,10 +105,10 @@ export default {
 
   .detalhe {
     display: grid;
-    grid-template-rows: 15% 40% 45%;
+    /* grid-template-rows: 15% 25% 20% 20% 20%; */
     /* align-items: center; */
     width: 100%;
-    height: 400px;
+    height: auto;
     box-shadow: 0px 0px 5px 3px #D9D9D9;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -125,8 +143,11 @@ export default {
 
   .descricao {
     display: grid;
-    grid-template-rows: 30% 70%;
-    padding: 10px;
+    gap: 10px;
+    font-size: 14px;
+    padding: 20px;
+    border-top: 1px solid;
+    margin-bottom: 10px;
   }
   
 

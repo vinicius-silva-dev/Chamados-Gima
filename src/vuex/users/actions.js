@@ -12,15 +12,15 @@ export default {
         return result.data
       } 
     } catch (error) {
-      throw new Error(error.message)
+      return error.response.status
     }
   },
 
   async login ({ commit }, data) {
     try {
-      if(data.isUser === '') {
-        throw new Error('Precisa dizer qual é o tipo de perfil que esta logando.')
-      }
+      // if(data.isUser === '') {
+      //   throw new Error('Precisa dizer qual é o tipo de perfil que esta logando.')
+      // }
 
       if(data.isUser === 'usuario') {
 
@@ -47,26 +47,50 @@ export default {
           return result.data
         }
     } catch (error) {
-      console.log(error)
+      return error.response.status
     }
   },
 
   async getUserById({commit}, data) {
+    
     try {
       const {userId, token} = data
+      
       const result = await axios.get(`http://localhost:3333/perfil/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
 
+      console.log(result.data.user)
       if(result) {
         commit('user', result.data.user)
         return result.data.user
       }
     } catch (error) {
       // console.log(error)
-      return null
+      return error.response.status
+    }
+  },
+  async getAnalistaById({commit}, data) {
+    
+    try {
+      const {analistaId, token} = data
+      
+      const result = await axios.get(`http://localhost:3333/analista/${analistaId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      console.log(result.data.analista)
+      if(result) {
+        commit('analista', result.data.analista)
+        return result.data.analista
+      }
+    } catch (error) {
+      // console.log(error)
+      return error.response.status
     }
   }
 }

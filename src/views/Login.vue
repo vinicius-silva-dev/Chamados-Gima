@@ -1,6 +1,12 @@
 <template>
   <div class="container">
+    
     <div class="img">
+      <Alert
+        :alert="alert"
+        :message="message"
+        :type="typeSituation"
+      />
       <v-img class="imgGima" src="../img/logio-gima.png"></v-img>
     </div>
     <div class="login">
@@ -63,19 +69,23 @@
 // import axios from 'axios'
 
 import Button from '@/components/Button.vue'
-// import Input from '@/components/Input.vue'
+import Alert from '@/components/Alert.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'theLogin',
   components: {
-    Button
+    Button,
+    Alert
   },
   data() {
     return {
       email: '',
       password: '',
       user: '',
+      alert: false,
+      message: '',
+      typeSituation: '',
     }
   },
   created(){
@@ -92,15 +102,26 @@ export default {
         isUser: this.user
       }
 
-
-      const result = await this.$store.dispatch('users/login', data)
-
-      window.localStorage.setItem('token', result.token)
-      window.localStorage.setItem('perfil', this.user)
-
-      if(result) {
-        this.$router.push("/home")
+      if(data.isUser === '') {
+        this.typeSituation = 'error'
+        this.alert = true
+        this.message = 'Precisa marcar o tipo de perfil.'
+        setTimeout(() => {
+          this.alert = false
+        },3000)
+      } else {
+        const result = await this.$store.dispatch('users/login', data)
+        if(result === 401) {
+          window.alert('E-mail ou senha incorreto!')
+        } else {
+          
+          window.localStorage.setItem('token', result.token)
+          window.localStorage.setItem('perfil', this.user)
+    
+          this.$router.push("/home")
+        }
       }
+     
     }
   }
 }
@@ -117,6 +138,7 @@ export default {
     grid-template-columns: 1fr 1fr;
     width: 100%;
     height: 100%;
+    position: relative;
     /* border: 1px solid; */
   }
 

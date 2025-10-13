@@ -26,7 +26,7 @@
         <v-card-text 
           class="descricao"
         >
-          {{descricao}}
+          {{descricaoLangth}}
         </v-card-text>
       </div>
       
@@ -73,13 +73,16 @@ export default {
       const classColorText = this.prioridade === "Medio" ? "#EDEDE3" : this.prioridade === "Baixo" ? "#008000" : "#FF0000"
 
       return classColorText
+    },
+    descricaoLangth() {
+      return this.descricao.length >= 50 ? this.descricao.substring(0,75).concat('...') : this.descricao
     }
   },
   methods: {
     async abrirDetalheDoChamado() {
 
-      await this.$router.push(`/home/detalhechamado/${this.id}`)
-      window.location.reload()
+      await this.$router.push(`/detalhechamado/${this.id}`)
+      // window.location.reload()
     }
   }
 }

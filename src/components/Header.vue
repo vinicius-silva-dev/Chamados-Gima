@@ -106,8 +106,8 @@ export default {
     },
 
     async newCasePage() {
-      await this.$router.push('/home/novocaso')
-      window.location.reload()
+      await this.$router.push('/novocaso')
+      // window.location.reload()
     },
     async userPage() {
       await this.$router.push('/gerenciadorusuarios')

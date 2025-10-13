@@ -2,22 +2,36 @@
   <div>
     <div class="atualizacoes">
       <div class="compartilharAtualizacoes">
-        <div class="acoesDeAtualizacao">
+        <div class="acoesDeAtualizacao" v-if="status.value !== 'Cancelado'">
           <ul>
-            <li class="publicar">Publicar</li>
-            <li class="encerrarCaso" @click="encerrar">Encerrar Caso</li>
-            <li class="cancelarCaso" @click="cancelar">Cancelar Caso</li>
+            <!-- <li class="publicar">Publicar</li> -->
+            <li v-if="isUser" class="encerrarCaso" @click="encerrar">Encerrar</li>
+            <li class="cancelarCaso" @click="cancelar">
+              Cancelar
+            </li>
           </ul>
         </div>
-        <div class="descricaoAtualizacao">
+        <div class="descricaoAtualizacao" >
           <v-textarea
+            v-if="status.value !== 'Cancelado'"
             v-model="texto"
             class="textArea"
             placeholder="Compartilhar uma atualização"
             variant="outlined"
             hide-details
           ></v-textarea>
+          <v-textarea
+            v-else
+            v-model="texto"
+            class="textArea"
+            disabled
+            placeholder="Compartilhar uma atualização"
+            variant="outlined"
+            hide-details
+          ></v-textarea>
+          <!-- {{status}} -->
           <!-- <div class="modificarTexto">
+          {{}}
             <v-btn-toggle
               v-model="formatting"
               variant="outlined"
@@ -36,6 +50,7 @@
             </v-btn-toggle>
           </div> -->
           <Button
+            v-if="status.value !== 'Cancelado'"
             title="Compartilhar"
             padding="0px 30px 0px 35px"
             top="8px"
@@ -72,11 +87,20 @@ export default {
     },
     author: {
       type: String
+    },
+    status: {
+      type: String
     }
   },
   data() {
     return {
-      texto: ''
+      texto: '',
+      disabled: false
+    }
+  },
+  computed: {
+    isUser() {
+      return window.localStorage.getItem('perfil') === 'usuario' ? false : true
     }
   },
   methods: {
@@ -114,23 +138,28 @@ export default {
 
   .acoesDeAtualizacao ul {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    
-    height: 70px;
+    grid-template-columns: repeat(3, 15%);
+    height: 50px;
     /* border: 1px solid #dcdcdc; */
-    border-radius: 10px;
+    /* border-radius: 10px; */
   }
   .acoesDeAtualizacao ul li {
     display: grid;
     align-items: center;
     width: 100%;
-    height: 100%;
+    margin-left: 33px;
+    /* height: 100%; */
     align-self: center;
-    font-size: 18px;
-    
+    font-size: 17px;
     cursor: pointer;
     /* border-radius: 0px 0px 10px 0px; */
     text-align: center;
+  }
+
+  .acoesDeAtualizacao ul li:hover {
+    /* border: 1px solid #dcdcdc; */
+    transform: scale(1.10);
+    transition: transform 0.1s ease;
   }
 
   .acoesDeAtualizacao ul li:not(:last-child) {
@@ -141,6 +170,8 @@ export default {
   }
   .cancelarCaso {
     color: #FF0000;
+    /* border-bottom: 1px solid; */
+    margin-left: 13px;
   }
 
   .textArea{
